@@ -52,12 +52,14 @@ public class SaveIntent extends Activity{
 	 		else{
 	 			Utils.makeToast("Please enter a valid name", getApplicationContext());
 	 		}
+	 		super.onBackPressed();
 	      }
 
 		private boolean validateFileName() {
 			// Method to validate the string in the file name field
 			String s = (((EditText)findViewById(R.id.fileName)).getText()).toString();
-			if(s.equals("")){
+			File f = new File(Environment.getExternalStorageDirectory(), "Notes/"+s);
+			if(s.equals("") || f.exists()){
 				//Utils.makeToast("NADA", getApplicationContext());
 				return false;
 				}

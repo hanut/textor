@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name="SaveIntent" android:label="@string/app_name"/>
+        <activity android:name="LoadIntent" android:label="@string/app_name"/>
     </application>
 
 </manifest>

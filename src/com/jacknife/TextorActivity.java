@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 
 public class TextorActivity extends Activity {
@@ -11,6 +12,7 @@ public class TextorActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
     }
     
@@ -21,7 +23,9 @@ public class TextorActivity extends Activity {
     
     public void loadText(View v){
     	if(Utils.checkExtReady()){
-    		Utils.makeToast("All set! Ready to I/O",getApplicationContext());
+    		//Utils.makeToast("All set! Ready to I/O",getApplicationContext());
+    		Intent intent = new Intent(getApplicationContext(), LoadIntent.class);
+            startActivity(intent);  
     	}
     	else{
     		Utils.makeToast("External Storage I/O Error!",getApplicationContext());
