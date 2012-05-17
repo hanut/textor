@@ -28,10 +28,10 @@
         android:background="#111122"/>
 
   <Button
-        android:id="@+id/btnSave"
+        android:id="@+id/btnLoad"
         android:layout_width="fill_parent"
         android:layout_height="40sp"
-        android:text="Save To SD"
+        android:text="Load from SD Card"
         android:textSize="18sp"
         android:layout_below="@+id/fileList"
         android:layout_alignParentLeft="true"

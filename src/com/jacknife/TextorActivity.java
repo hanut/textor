@@ -3,11 +3,15 @@ package com.jacknife;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.StaticLayout;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 
 public class TextorActivity extends Activity {
+	
+	static int NOTE_RETRIEVAL = 0;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,7 +29,7 @@ public class TextorActivity extends Activity {
     	if(Utils.checkExtReady()){
     		//Utils.makeToast("All set! Ready to I/O",getApplicationContext());
     		Intent intent = new Intent(getApplicationContext(), LoadIntent.class);
-            startActivity(intent);  
+            startActivityForResult(intent, NOTE_RETRIEVAL);  
     	}
     	else{
     		Utils.makeToast("External Storage I/O Error!",getApplicationContext());
@@ -42,5 +46,16 @@ public class TextorActivity extends Activity {
     public void cancel(View v){
     	EditText et = (EditText)findViewById(R.id.txtBox);
     	et.setText("");
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode,
+            Intent data) {
+        if (requestCode == NOTE_RETRIEVAL) {
+            if (resultCode == RESULT_OK) {
+            	Bundle b = data.getExtras();
+    	        EditText et = (EditText)findViewById(R.id.txtBox);
+    	        et.setText(b.getString("note"));
+            }
+        }
     }
 }
