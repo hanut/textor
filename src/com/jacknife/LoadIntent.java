@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
@@ -68,7 +69,7 @@ public class LoadIntent extends Activity{
 		}
 
 	 	public void loadNote(String noteName){
-	 		File noteFile = new File(Environment.getExternalStorageDirectory(), "Notes/"+noteName);
+	 		File noteFile = new File(noteName);
 	 		//Read text from file
 	 		StringBuilder text = new StringBuilder();
 	 		//In this section we attempt to read the file into the text variable
@@ -85,7 +86,8 @@ public class LoadIntent extends Activity{
 	 		    Utils.makeToast("Sorry there was an I/O error!", getApplicationContext());
 	 		}
 	 		//Make a bundle and add value to Pass back to main intent
-		 	Bundle passBack = new Bundle();
-		 	passBack.putString("note", text.toString());
+	 		//Utils.makeToast(text.toString(), getApplicationContext());
+		 	setResult(RESULT_OK, new Intent().putExtra("note", text.toString()));
+		 	finish();
 	 	}
 }
