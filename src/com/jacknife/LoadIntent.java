@@ -8,43 +8,55 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class LoadIntent extends Activity{
-			//private String note="";
+	private ArrayList<Note> noteList = new ArrayList<Note>(); 
+	
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 	        setContentView(R.layout.load_layout);
-	        Typeface font1 = Typeface.createFromAsset(getAssets(), "fonts/RobotoLight.ttf");
-	        TextView appHeader = (TextView)findViewById(R.id.appHeader);
-	        appHeader.setTypeface(font1);
+	        //Typeface font1 = Typeface.createFromAsset(getAssets(), "fonts/RobotoLight.ttf");
+	        //TextView appHeader = (TextView)findViewById(R.id.appHeader);
+	        //appHeader.setTypeface(font1);
+	        
 	        ListView listView = (ListView) findViewById(R.id.fileList);
-	        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-	        	android.R.layout.simple_list_item_1, android.R.id.text1, getNotesList());
+	        noteList = getNotesList();
+	        View header = (View)getLayoutInflater().inflate(R.layout.fl_header_row, null);
+	        listView.addHeaderView(header);
+	        Note tmp[] = new Note[noteList.size()];
+	        for(int i=0;i<noteList.size();i++){
+	        	tmp[i] = (Note)noteList.get(i);
+	        	//System.err.println(noteList.get(i));
+	        }
+	        FLAdapter adapter = new FLAdapter(this,R.layout.fl_item, tmp);
 	        listView.setAdapter(adapter);
+	        
+	        
+	        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+	        	android.R.layout.simple_list_item_1, android.R.id.text1, getNotesList());
+	        listView.setAdapter(adapter);*/
 	        listView.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					//Utils.makeToast(((TextView)view).getText().toString(), getApplicationContext());
-					loadNote(((TextView)view).getText().toString());
+					loadNote(getPath(position));
 				}  
 	        	
-	        });  
+	        });
+	        
 	    }
 	 
-	 	public ArrayList<String> getNotesList(){
-	 		ArrayList<String> noteList = new ArrayList<String>();
+	 	public ArrayList<Note> getNotesList(){
+	 		ArrayList<Note> noteList = new ArrayList<Note>();
 	 		try
 	 		{
 	 			File root = new File(Environment.getExternalStorageDirectory(), "Notes");
@@ -57,7 +69,14 @@ public class LoadIntent extends Activity{
 	            	this.finish();
 	            }
 	            for(int i=0;i<fileList.length;i++){
-	            	noteList.add(fileList[i].getAbsolutePath());
+	            	//this.filePaths.add(fileList[i].getAbsolutePath());
+	            	//noteList.add(fileList[i].getName());
+	    	 		Note tmp = new Note();
+	            	tmp.setName(fileList[i].getName());
+	            	tmp.setPath(fileList[i].getAbsolutePath());
+	            	noteList.add(i,tmp);
+	            	//System.err.println(tmp.getName());
+	            	//System.err.println(noteList.get(i).getName());
 	            }
 	 		}
 	 		catch(Exception e){
@@ -65,11 +84,14 @@ public class LoadIntent extends Activity{
 	             String importError = e.getMessage();
 	             Utils.makeToast(importError, getApplicationContext());
 	 		}
+	 		/*for(int i=0;i<noteList.size();i++){
+	 			System.err.println(noteList.get(i).getName());
+	 		}*/
 			return noteList;
 		}
 
-	 	public void loadNote(String noteName){
-	 		File noteFile = new File(noteName);
+	 	public void loadNote(String notePath){
+	 		File noteFile = new File(notePath);
 	 		//Read text from file
 	 		StringBuilder text = new StringBuilder();
 	 		//In this section we attempt to read the file into the text variable
@@ -90,4 +112,9 @@ public class LoadIntent extends Activity{
 		 	setResult(RESULT_OK, new Intent().putExtra("note", text.toString()));
 		 	finish();
 	 	}
+	 	
+	 	public String getPath(int position){
+	 		return this.noteList.get(position).getPath();
+	 	}
+
 }

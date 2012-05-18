@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.view.Window;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class SaveIntent extends Activity{
 			private String note="";
+			private boolean overwrite = false;
+			
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
@@ -24,6 +27,7 @@ public class SaveIntent extends Activity{
 	        appHeader.setTypeface(font1);
 	        Bundle b = getIntent().getExtras();
 	        this.note = b.getString("note");
+	        
 	    }
 	 
 	 	public void saveNoteToSD(View v){
@@ -48,26 +52,45 @@ public class SaveIntent extends Activity{
 	             String importError = e.getMessage();
 	             Utils.makeToast(importError, getApplicationContext());
 	        }
+	        this.finish();
 	 	   }
 	 		else{
 	 			Utils.makeToast("Please enter a valid name", getApplicationContext());
 	 		}
-	 		super.onBackPressed();
+	 		
 	      }
 
-		private boolean validateFileName() {
+		public boolean validateFileName() {
+			System.err.println("In validatefilename()");
 			// Method to validate the string in the file name field
 			String s = (((EditText)findViewById(R.id.fileName)).getText()).toString();
 			File f = new File(Environment.getExternalStorageDirectory(), "Notes/"+s);
-			if(s.equals("") || f.exists()){
+			if(s.equals("")){
 				//Utils.makeToast("NADA", getApplicationContext());
 				return false;
 				}
 			else{
-				//Utils.makeToast(s, getApplicationContext());
-				return true;
-				}	
-			
+				if(f.exists() && !this.overwrite){
+					return false;
+				}
+				else{
+					//Utils.makeToast(s, getApplicationContext());
+					return true;
+				}
+			}
 		}
 
+		public void toggleOverwrite(View v){
+			CheckBox cBox1 = (CheckBox)findViewById(R.id.chkBox1);
+			if(cBox1.isChecked()){
+				this.overwrite = true;
+				cBox1.setChecked(true);
+				//Utils.makeToast(this.overwrite, getApplicationContext());
+			}
+			else{
+				this.overwrite = false;
+				cBox1.setChecked(false);
+				//Utils.makeToast(this.overwrite, getApplicationContext());
+			}
+		}
 }

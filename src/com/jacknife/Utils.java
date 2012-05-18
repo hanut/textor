@@ -34,5 +34,19 @@ public class Utils {
     	Toast toast = Toast.makeText(context, text, duration);
     	toast.show();
     }
+    
+    public static void makeToast(int msg,Context context){
+    	CharSequence text = Integer.toString(msg);
+    	int duration = Toast.LENGTH_SHORT;
+    	Toast toast = Toast.makeText(context, text, duration);
+    	toast.show();
+    }
+    
+    public static void makeToast(boolean msg,Context context){
+    	CharSequence text = String.valueOf(msg);
+    	int duration = Toast.LENGTH_SHORT;
+    	Toast toast = Toast.makeText(context, text, duration);
+    	toast.show();
+    }
 
 }

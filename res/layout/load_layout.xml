@@ -1,31 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_textor" >
 
-   <TextView
-        android:id="@+id/appHeader"
-        android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:text="@string/app_name"
-        android:textColor="#7799EE"
-        android:textSize="28sp"
-        android:paddingTop="20dp"
-        android:paddingBottom="10dp" 
-        android:gravity="center"/>
   
   <ListView
         android:id="@+id/fileList"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_alignLeft="@+id/appHeader"
-        android:layout_below="@+id/appHeader"
-        android:hint="Enter name for note"
+        android:visibility="visible"        
         android:textSize="18sp"
-        android:background="#111122"/>
+        android:background="@drawable/listback"/>
 
   
-</RelativeLayout>
+</LinearLayout>
