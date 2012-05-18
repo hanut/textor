@@ -48,7 +48,7 @@ public class LoadIntent extends Activity{
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					//Utils.makeToast(((TextView)view).getText().toString(), getApplicationContext());
-					loadNote(getPath(position));
+					loadNote(getPath(position-1));
 				}  
 	        	
 	        });
