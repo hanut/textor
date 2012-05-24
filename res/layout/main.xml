@@ -9,66 +9,58 @@
 
     <TextView
         android:id="@+id/appHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_height="70dp"
+        android:layout_width="fill_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:text="@string/app_name"
-        android:textColor="#7799EE"
-        android:textSize="28sp"
-        android:paddingTop="20dp"
-        android:paddingBottom="10dp" />
-
-
-    <EditText
-        android:id="@+id/txtBox"
-        android:layout_width="fill_parent"
-        android:layout_height="170dp"
+        android:textColor="#EEEEEE"
+        android:textSize="28sp" 
+        android:gravity="center"
+        android:background="@drawable/title_background"/>
+    
+    <Button
+        android:id="@+id/btnNew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:padding="15dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/appHeader"
-        android:hint="Please enter you text"
-        android:textSize="18sp" />
+        android:layout_marginTop="40dp"
+        android:background="@drawable/button_type_1"
+        android:onClick="newNote"
+        android:text="New"
+        android:textColor="#EEEEEE" />
+    
+    <Button
+        android:id="@+id/btnLoad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:padding="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnNew"
+        android:background="@drawable/button_type_1"
+        android:onClick="loadText"
+        android:text="Load" 
+        android:textColor="#EEEEEE"	/>
 
     <Button
-        android:id="@+id/btnSave"
-        android:layout_width="124dp"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:layout_below="@+id/txtBox"
-        android:layout_alignRight="@+id/txtBox"
-        android:onClick="saveText"
-        android:background="@drawable/button_type_1"
-        />
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="124dp"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:layout_below="@+id/txtBox"
-        android:layout_alignLeft="@+id/txtBox"
-        android:onClick="cancel"
-        android:background="@drawable/button_type_1"
-        />
-    <Button
         android:id="@+id/btnQuit"
-        android:layout_width="124dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quit"
-        android:layout_below="@+id/btnSave"
-        android:layout_alignRight="@+id/btnSave"
+        android:textSize="20sp"
+        android:padding="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnLoad"
+        android:background="@drawable/button_type_1"
         android:onClick="quitApp"
-        android:background="@drawable/button_type_1"
-        />
-    
-     <Button
-        android:id="@+id/btnLoad"
-        android:layout_width="124dp"
-        android:layout_height="wrap_content"
-        android:text="Load"
-        android:layout_below="@+id/btnCancel"
-        android:layout_alignLeft="@+id/btnCancel"
-        android:onClick="loadText"
-        android:background="@drawable/button_type_1"
-        />
+        android:text="Quit"
+        android:textColor="#EEEEEE" />
         
     </RelativeLayout>

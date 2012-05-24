@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 public class SaveIntent extends Activity{
 			private String note="";
+			private String fileName="";
 			private boolean overwrite = false;
 			
 	 @Override
@@ -27,8 +28,43 @@ public class SaveIntent extends Activity{
 	        appHeader.setTypeface(font1);
 	        Bundle b = getIntent().getExtras();
 	        this.note = b.getString("note");
+	        this.fileName = b.getString("file name");
+	        if(this.fileName != "untitled.txt"){
+	        	saveNoteToSD();
+	        }
 	        
 	    }
+	 
+	 public void saveNoteToSD(){
+	 		if(validateFileName()){
+	        try
+	        {
+	            File root = new File(Environment.getExternalStorageDirectory(), "Notes");
+	            if (!root.exists()) {
+	                root.mkdirs();
+	            }
+	            String fileName = this.fileName;
+	            File noteFile = new File(root, fileName);
+	            FileWriter writer = new FileWriter(noteFile);
+	            writer.append(this.note);
+	            writer.flush();
+	            writer.close();
+	            Utils.makeToast("Saved!", getApplicationContext());
+	        }
+	        catch(IOException e)
+	        {
+	             e.printStackTrace();
+	             String importError = e.getMessage();
+	             Utils.makeToast(importError, getApplicationContext());
+	        }
+	        this.finish();
+	 	   }
+	 		else{
+	 			Utils.makeToast("Please enter a valid name", getApplicationContext());
+	 		}
+	 		
+	      }
+	 
 	 
 	 	public void saveNoteToSD(View v){
 	 		if(validateFileName()){

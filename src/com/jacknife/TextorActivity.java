@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 
 public class TextorActivity extends Activity {
 	
 	static int NOTE_RETRIEVAL = 0;
+	
 	
     /** Called when the activity is first created. */
     @Override
@@ -35,26 +35,30 @@ public class TextorActivity extends Activity {
     	}
     }
     
-    public void saveText(View v){
-    	String value = ((EditText)findViewById(R.id.txtBox)).getText().toString();
-    	Intent intent = new Intent(getApplicationContext(), SaveIntent.class);
-    	intent.putExtra("note", value);
+    public void newNote(View v){
+    	Intent intent = new Intent(getApplicationContext(), NoteEditor.class);
+    	intent.putExtra("note", "");
+    	intent.putExtra("file name", "untitled.txt");
         startActivity(intent);  
-    }
+    }/*
     
     public void cancel(View v){
     	EditText et = (EditText)findViewById(R.id.txtBox);
     	et.setText("");
-    }
+    }*/
 
     protected void onActivityResult(int requestCode, int resultCode,
             Intent data) {
         if (requestCode == NOTE_RETRIEVAL) {
             if (resultCode == RESULT_OK) {
             	Bundle b = data.getExtras();
-    	        EditText et = (EditText)findViewById(R.id.txtBox);
-    	        et.setText(b.getString("note"));
+            	Intent intent = new Intent(getApplicationContext(), NoteEditor.class);
+            	intent.putExtra("note", b.getString("note"));
+            	intent.putExtra("file name", b.getString("file name"));
+                startActivity(intent);
             }
         }
     }
+
+
 }

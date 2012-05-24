@@ -48,7 +48,7 @@ public class LoadIntent extends Activity{
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					//Utils.makeToast(((TextView)view).getText().toString(), getApplicationContext());
-					loadNote(getPath(position-1));
+					loadNote(getPath(position-1),getName(position-1));
 				}  
 	        	
 	        });
@@ -90,7 +90,7 @@ public class LoadIntent extends Activity{
 			return noteList;
 		}
 
-	 	public void loadNote(String notePath){
+	 	public void loadNote(String notePath,String fileName){
 	 		File noteFile = new File(notePath);
 	 		//Read text from file
 	 		StringBuilder text = new StringBuilder();
@@ -109,12 +109,20 @@ public class LoadIntent extends Activity{
 	 		}
 	 		//Make a bundle and add value to Pass back to main intent
 	 		//Utils.makeToast(text.toString(), getApplicationContext());
-		 	setResult(RESULT_OK, new Intent().putExtra("note", text.toString()));
+	 		Intent passBack = new Intent();
+	 		Note noteObj = new Note(fileName, notePath, text.toString());
+	 		passBack.pu
+	 		passBack.putExtra("note", text.toString());
+	 		passBack.putExtra("file name", fileName);
+		 	setResult(RESULT_OK, passBack);
 		 	finish();
 	 	}
 	 	
 	 	public String getPath(int position){
 	 		return this.noteList.get(position).getPath();
 	 	}
-
+	 	
+	 	public String getName(int position){
+	 		return this.noteList.get(position).getName();
+	 	}
 }
